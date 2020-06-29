@@ -11,11 +11,11 @@ class RTreeC:
         self.p.buffering_capacity=129
         self.p.dat_extension="data"
         self.p.idx_extension="index"
-        self.idx=index.Index("rtree_index",properties=self.p)
     def getKNN(self,k,vec):
         ans=list(self.idx.nearest(coordinates=tuple(vec+vec),num_results=k))
         return ans
     def insert(self):
+        self.idx=index.Index("rtree_index",properties=self.p)
         for i in range(len(vector_files)):
             self.idx.insert(i,tuple(vector_files[i]+vector_files[i]))
 
