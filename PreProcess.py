@@ -10,7 +10,7 @@ dim_vec=0
 path_dataset_vec="./files/vec.txt"
 path_dataset_paths="./files/paths.txt"
 
-def preprocess(path_photos):
+def preprocess(path_photos,n):
     print("PreProcessing Photos ...")
     #check if file exist
     if os.path.isfile(path_dataset_vec):
@@ -20,7 +20,10 @@ def preprocess(path_photos):
     file_vec=open(path_dataset_vec,"w")
     file_path=open(path_dataset_paths,"w")
     begin=time.time()
+    count=0
     for r,d,f in os.walk(path_photos):
+        if count==n:
+            break
         for file in f:
             path=r+'/'+file
             img=fc.load_image_file(path)
@@ -30,8 +33,10 @@ def preprocess(path_photos):
             new_vec=','.join(str(e) for e in vec[0])
             file_vec.write(new_vec+'\n')
             file_path.write(path+'\n')
-            #path_files.append(path)
-            #vector_files.append(vec)
+            count+=1
+            if count==n:
+                break
+                
 
     file_vec.close()
     file_path.close()

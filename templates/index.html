@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title> Proyecto BD2</title>
     <link rel="stylesheet" href="./static/lib/bulma/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   </head>
@@ -28,6 +29,8 @@
                         </label>
                       </div>
                       <button class="button is-primary is-medium is-fullwidth" @click="upLoadAll">Enviar</button>
+                      <br>
+                      <button class="button is-warning is-medium is-fullwidth" @click="buildRTree">Build RTree</button>
                     </div>
               </div>
               <div class="column is-6 is-offset-1">
@@ -44,23 +47,42 @@
 
         <div class="box cta">
           <progress class="progress is-large is-info" max="100" v-if="spinner">60%</progress>
-           <h2 class="has-text-centered">RESULTS:  {[{ msg.length }]} </h2>
         </div>
     <section class="container cards-container">
-      <div class="columns is-centered is-multiline" id="sectioncontainer">
-
-      {% for imageitem in imagelist %}
-          <div class="box" style="width:100%">
+      <h2 class="title">Figures in Eucliden</h2>
+      <div class="columns">
+          <div class="column" v-for="i in images_eucl" style="width:100%">
               <article class="media">
-                  <figure class="image is-64x64">
-                    <img src="{{ url_for('static', filename=imageitem)}}" alt="Image">
+                  <figure class="image">
+                    <img :src="i" alt="Image">
                   </figure>
               </article>
               <br>
-            </div>
-      {% endfor %}
+          </div>
+      </div>
 
+      <h2 class="title">Figures in Manhattan</h2>
+      <div class="columns">
+          <div class="column" v-for="i in images_manh" style="width:100%">
+              <article class="media">
+                  <figure class="image">
+                    <img :src="i" alt="Image">
+                  </figure>
+              </article>
+              <br>
+          </div>
+      </div>
 
+      <h2 class="title">Figures in RTree</h2>
+      <div class="columns">
+          <div class="column" v-for="i in images_rtree" style="width:100%">
+              <article class="media">
+                  <figure class="image">
+                    <img :src="i" alt="Image">
+                  </figure>
+              </article>
+              <br>
+          </div>
       </div>
     </section>
   </div>

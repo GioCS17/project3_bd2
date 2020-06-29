@@ -6,7 +6,10 @@ var v = new Vue({
         knn:0,
         msg:[],
         spinner : false,
-        spinner2 : false
+        spinner2 : false,
+        images_eucl:[],
+        images_manh:[],
+        images_rtree:[]
     },
     methods: {
         clearSearchField(){
@@ -14,17 +17,31 @@ var v = new Vue({
         upSelectedFiles(event){
             this.selectedFiles=event.target.files;
         },
+        buildRTree(){
+           var url='http://127.0.0.1:5000/buildRtree';
+           axios.get(url)
+                .then(response => (console.log("Rtree created")))
+
+        },
         async upLoadAll(){
             this.spinner2 = true
             const fd = new FormData();
             fd.append('file',this.selectedFiles[0])
+            if(this.knn==0)
+                this.knn=2
             fd.append("text", this.knn);
-            //fd.append('text',this.knn2)
             var url='http://127.0.0.1:5000/upload';
             await axios.post(url,fd)
-            .then(function(res){
-                if(res.status==201)
-                    console.log("exitos")
+            .then(res=>{
+                    if(res.data.status==201)
+                        console.log("exitos")
+
+                    for(i=0;i<this.knn;i++)
+                        this.images_eucl[i]="data:image.jpg;base64, "+res.data.data_images[i]
+                    for(i=this.knn,j=0;i<2*this.knn;i++,j++)
+                        this.images_manh[j]="data:image.jpg;base64, "+res.data.data_images[i]
+                    for(i=2*this.knn,j=0;i<3*this.knn;i++,j++)
+                        this.images_rtree[j]="data:image.jpg;base64, "+res.data.data_images[i]
                 })
             .catch(function(err){
                 console.log(err)
@@ -34,21 +51,6 @@ var v = new Vue({
             })
             this.spinner2 = false
         },
-        async search(to_search) {
-            console.log("consulta entro a search")
-            this.spinner = true
-            const path = 'http://localhost:5000/tweets/' + to_search;
-            await axios.get(path)
-                .then((res) => {
-                this.msg = res.data;
-                this.msg.sort((a,b) => (a.score < b.score) ? 1 : ((b.score < a.score) ? -1 : 0));
-            })
-            .catch((error) => {
-            // eslint-disable-next-line
-            console.error(error);
-            });
-            this.spinner = false
-        }
     },
     computed: {
     },

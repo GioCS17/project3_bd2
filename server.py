@@ -7,6 +7,7 @@ from flask_cors import CORS
 from ProcessRecognition import *
 from PreProcess import *
 from werkzeug.utils import secure_filename
+import base64
 
 
 # instantiate the app
@@ -31,6 +32,11 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.route("/buildRtree")
+def buildRtree():
+    build_Rtree()
+    return jsonify({'status': 201})
+
 @app.route("/upload",methods=['POST'])
 def uploadPicture():
     print("Computing Photo ...")
@@ -43,17 +49,20 @@ def uploadPicture():
         file.save(os.path.join(path_photos,filename))
         ans=knn(path_photos+file.filename,int(k))
         print(ans)
-        imagelist=[]
+        data=[]
+        ind=0
         for i in ans:
-            imagelist.append(path_files[i][1:])
-            print(path_files[i])
+            file_ans = open(path_files[i][:-1],"rb")
+            data.append(base64.encodebytes(file_ans.read()).decode('utf-8'))
+            ind+=1
 
-    return render_template("index.html",imagelist=imagelist)
-    #return jsonify({'status': 201})
+    return jsonify({'status': 201,'data_images':data})
 
-def main():
-    preprocess(root)
+def main(n):
+    preprocess(root,n)
     load_var()
+
 if __name__=="__main__":
-    main()
+    n=12800
+    main(n)
     app.run(debug=True)

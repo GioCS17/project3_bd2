@@ -3,6 +3,31 @@ from Utils import *
 from queue import PriorityQueue
 from rtree import index
 
+class RTreeC:
+    p=index.Property()
+    def __init__(self):
+        #self.p=index.Property()
+        self.p.dimension=128
+        self.p.buffering_capacity=129
+        self.p.dat_extension="data"
+        self.p.idx_extension="index"
+        self.idx=index.Index("rtree_index",properties=self.p)
+    def getKNN(self,k,vec):
+        ans=list(self.idx.nearest(coordinates=tuple(vec+vec),num_results=k))
+        return ans
+    def insert(self):
+        for i in range(len(vector_files)):
+            self.idx.insert(i,tuple(vector_files[i]+vector_files[i]))
+
+r_tree=RTreeC()
+
+def build_Rtree():
+    print("Building Rtree ...")
+    begin=time.time()
+    r_tree.insert()
+    print("Time in building Rtree::",time.time()-begin)
+
+
 def knn(photo,k):
     print("Processing KNN methods ...")
     print("Input photo::",photo)
@@ -42,19 +67,8 @@ def priorityqueue_knn(vec,photo,k):
 
 def rtree_knn(vec,photo,k):
     print("Processing Query KNN with RTree")
-    p = index.Property()
-    #p.dimensions=dim_vec
-    p.dimension=128
-    p.buffering_capacity=129
-    p.dat_extension="data"
-    p.idx_extension="index"
-    idx=index.Index("rtree_index",properties=p)
-
-    for i in range(len(vector_files)):
-        idx.insert(i,tuple(vector_files[i]+vector_files[i]))
-
     begin=time.time()
-    ans=list(idx.nearest(coordinates=tuple(vec+vec),num_results=k))
+    ans=r_tree.getKNN(k,vec)
     print("Time in RTree::",time.time()-begin)
 
     return ans

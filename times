@@ -1,0 +1,39 @@
+times
+n=100
+Time Priority Queue Euclidean Dist:: 0.7748596668243408
+Time Priority Queue Manhattan Dist:: 0.7367889881134033
+Time in RTree:: 0.15754055976867676
+n=200
+Time Priority Queue Euclidean Dist:: 0.7495241165161133
+Time Priority Queue Manhattan Dist:: 0.6057734489440918
+Time in RTree:: 0.10651016235351562
+n=400
+Time Priority Queue Euclidean Dist:: 0.9384250640869141
+Time Priority Queue Manhattan Dist:: 0.6559364795684814
+Processing Query KNN with RTree
+Time in RTree:: 0.11393904685974121
+n=800
+Time Priority Queue Euclidean Dist:: 0.7229673862457275
+Time Priority Queue Manhattan Dist:: 0.7792775630950928
+Processing Query KNN with RTree
+Time in RTree:: 0.15205931663513184
+n=1600
+Time Priority Queue Euclidean Dist:: 0.6986813545227051
+Time Priority Queue Manhattan Dist:: 0.6177067756652832
+Processing Query KNN with RTree
+Time in RTree:: 0.10353851318359375
+n=3200
+Time Priority Queue Euclidean Dist:: 0.7727985382080078
+Time Priority Queue Manhattan Dist:: 0.5978436470031738
+Processing Query KNN with RTree
+Time in RTree:: 0.12965846061706543
+n=6400
+Time Priority Queue Euclidean Dist:: 0.9536771774291992
+Time Priority Queue Manhattan Dist:: 0.7254157066345215
+Processing Query KNN with RTree
+Time in RTree:: 0.11549258232116699
+n=12800
+Time Priority Queue Euclidean Dist:: 0.8096771240234375
+Time Priority Queue Manhattan Dist:: 0.6568562984466553
+Processing Query KNN with RTree
+Time in RTree:: 0.12361669540405273
