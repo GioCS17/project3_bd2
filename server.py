@@ -12,7 +12,7 @@ from werkzeug.utils import secure_filename
 # instantiate the app
 app = Flask(__name__)
 # Path of files
-path_files = './lfw/'
+root= './lfw/'
 path_photos='./photos/'
 
 # enable CORS
@@ -41,12 +41,18 @@ def uploadPicture():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(path_photos,filename))
-        a=knn(path_photos+file.filename,int(k))
+        ans=knn(path_photos+file.filename,int(k))
+        print(ans)
+        imagelist=[]
+        for i in ans:
+            imagelist.append(path_files[i][1:])
+            print(path_files[i])
 
-    return jsonify({'status': 201})
+    return render_template("index.html",imagelist=imagelist)
+    #return jsonify({'status': 201})
 
 def main():
-    preprocess(path_files)
+    preprocess(root)
     load_var()
 if __name__=="__main__":
     main()

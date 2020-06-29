@@ -15,4 +15,5 @@ https://pypi.org/project/cmake/
 https://pypi.org/project/dlib/
 - Face-recognition library: pip install face-recognition
 https://pypi.org/project/face-recognition/
-- 
+- RTree: pip install Rtree
+https://pypi.org/project/Rtree/
