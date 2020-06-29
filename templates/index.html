@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <meta charset="UTF-8">
+    <title> Proyecto BD2</title>
+    <link rel="stylesheet" href="./static/lib/bulma/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  </head>
+  <body>
+    <div id="app">
+        <br>
+        <div class="content">
+            <div class="columns">
+              <div class="column is-2 is-offset-2">
+                    <div class="field">
+                      <div class="file is-boxed has-name">
+                        <label class="file-label" style="width:100%">
+                          <input class="file-input" type="file" name="resume" @change="upSelectedFiles" multiple="multiple">
+                          <span class="file-cta">
+                            <span class="file-icon">
+                              <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                              Load Image
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                      <button class="button is-primary is-medium is-fullwidth" @click="upLoadAll">Enviar</button>
+                    </div>
+              </div>
+              <div class="column is-6 is-offset-1">
+                  <div class="box">
+                        <p class="title is-1">Face Recognition</p>
+                        <input class="input" type="number" v-model="knn">
+                          <ul>
+                          </ul>
+                    </div>
+              </div>
+            </div>
+        </div>
+    <progress class="progress is-large is-success" max="100" v-if="spinner2">60%</progress>
+
+        <div class="box cta">
+          <progress class="progress is-large is-info" max="100" v-if="spinner">60%</progress>
+           <h2 class="has-text-centered">RESULTS:  {[{ msg.length }]} </h2>
+        </div>
+    <section class="container cards-container">
+      <div class="columns is-centered is-multiline" id="sectioncontainer">
+
+          <div class="box" v-for="(m,idx) in msg" :key="idx" style="width:100%">
+              <article class="media">
+                <div class="media-left">
+                  <figure class="image is-64x64">
+                    <img :src="m.profile_image_url" alt="Image">
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>{[{ m.name }]}</strong> <small>@{[{ m.screen_name }]}</small> <small>{[{ m.created_at }]}</small>
+                      <br>
+                      {[{ m.text }]}
+                    </p>
+                  </div>
+                  <nav class="level is-mobile">
+                    <div class="level-left">
+                      <a class="level-item" aria-label="reply">
+                        {[{ m.score }]}
+                      </a>
+                    </div>
+                  </nav>
+                </div>
+              </article>
+              <br>
+            </div>
+      </div>
+    </section>
+  </div>
+  <footer>
+    <div class="box cta">
+      <div class="columns is-mobile is-centered">
+          <h3>Face Recognition</h3>
+      </div>
+    </div>
+  </footer>
+<script src='./static/lib/vue.js'></script>
+<script src='./static/js/main.js'></script>
+</body>
+</html>
