@@ -106,7 +106,7 @@ La vista se separa en 2 partes, una para la subida de la imagen e ingreso del va
 #### k=8
 ![Imagen1](/img/k_8.png)
 
-#### k=12
+#### k=16
 ![Imagen1](/img/k_16.png)
 
 # Experimento 2
